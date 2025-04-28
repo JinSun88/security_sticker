@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:html' as html;
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:math';
+import 'package:flutter/material.dart';
 
 void main() => runApp(ProfileApp());
 
@@ -101,13 +101,13 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
 </plist>
 ''';
 
-    final bytes = utf8.encode(profile);
-    final blob = html.Blob([bytes], 'application/x-apple-aspen-config');
-    final url = html.Url.createObjectUrlFromBlob(blob);
+    final encoded = base64Encode(utf8.encode(profile));
+    final url = 'data:application/x-apple-aspen-config;base64,$encoded';
+
     final anchor = html.AnchorElement(href: url)
-      ..setAttribute("download", "custom_profile.mobileconfig")
+      ..target = '_blank'
+      ..download = 'profile.mobileconfig'
       ..click();
-    html.Url.revokeObjectUrl(url);
 
     showDialog(
       context: context,
