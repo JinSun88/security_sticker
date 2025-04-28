@@ -3,7 +3,7 @@ name: Flutter Web Deploy
 on:
   push:
     branches:
-      - main   
+      - main
 
 jobs:
   build:
@@ -16,13 +16,13 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.5'   
+          flutter-version: '3.19.5'
 
       - name: Install dependencies
         run: flutter pub get
 
       - name: Build Flutter Web
-        run: flutter build web --release
+        run: flutter build web --release --base-href /security_sticker/   # << 정확히 수정!!
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
